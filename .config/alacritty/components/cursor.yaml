@@ -1,0 +1,56 @@
+colors:
+ cursor:
+   text: '#272727'
+   cursor: '#a89984'
+
+ vi_mode_cursor:
+   text: '#272727'
+   cursor: '#98971a'
+
+ search:
+   matches:
+     foreground: '#272727'
+     background: '#98971a'
+
+   focused_match:
+     foreground: '#272727'
+     background: '#fabd2f'
+
+   footer_bar:
+     background: '#b16286'
+     foreground: '#272727'
+
+ hints:
+   start:
+     foreground: '#010816'
+     background: '#E99440'
+
+   end:
+     foreground: '#E99440'
+     background: '#010816'
+
+ line_indicator:
+   foreground: None
+   background: None
+
+ selection:
+   text: CellBackground
+   background: CellForeground
+
+ transparent_background_colors: false
+
+cursor:
+  style:
+    blinking: On
+
+  blink_interval: 750
+
+  unfocused_hollow: true
+  thickness: 1
+
+scrolling:
+  history: 10000
+  multiplier: 3
+
+mouse:
+  hide_when_typing: true
