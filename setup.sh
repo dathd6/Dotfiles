@@ -48,5 +48,5 @@ bash ./scripts/xmonad.sh
 echo -e "${GREEN}Success:${NC} Done setup Xmonad."
 
 # Neovim update plugins
-#bash ./scripts/neovim.sh
-#echo -e "${GREEN}Success:${NC} Done setup neovim."
+bash ./scripts/nvim.sh
+echo -e "${GREEN}Success:${NC} Done setup neovim."
