@@ -25,12 +25,28 @@ if [[ -z "$user" ]]; then
   exit 1
 fi
 
-home="/home/$user"
-
 # Update packages
 pacman -Sy
 echo -e "${GREEN}Success:${NC} Done update package."
 
+home="/home/$user"
+
 # Autoupdate mirrorlist
 bash ./scripts/reflector.sh
 echo -e "${GREEN}Success:${NC} Done setup reflector."
+
+# Config Alacritty
+bash ./scripts/alacritty.sh
+echo -e "${GREEN}Success:${NC} Done setup alacritty."
+
+# Config Z-Shell
+bash ./scripts/zsh.sh
+echo -e "${GREEN}Success:${NC} Done setup zsh."
+
+# Config Xmonad
+bash ./scripts/xmonad.sh
+echo -e "${GREEN}Success:${NC} Done setup Xmonad."
+
+# Neovim update plugins
+#bash ./scripts/neovim.sh
+#echo -e "${GREEN}Success:${NC} Done setup neovim."
