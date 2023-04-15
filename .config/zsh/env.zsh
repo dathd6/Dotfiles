@@ -53,7 +53,7 @@ export FZF_DEFAULT_OPTS="
   --color fg+:#cdd6f4
   --color bg:#282828
   --color bg+:#282828
-  --color hl:#282828
+  --color hl:#ebdbb4
   --color hl+:#f38ba8
   --color info:#cba6f7
   --color prompt:#cba6f7
