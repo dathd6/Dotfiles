@@ -116,7 +116,7 @@ function git-svn(){
           svn export "$repo/trunk/$2"
   else
           echo "Use: git-svn <repository> <subdirectory>"
-  fi  
+  fi
 }
 
 # vim:ft=sh

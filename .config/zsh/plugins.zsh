@@ -29,15 +29,9 @@ zinit light-mode for \
   zsh-users/zsh-autosuggestions \
   Aloxaf/fzf-tab
 
-zinit ice wait'3' lucid
-zinit light zsh-users/zsh-history-substring-search
-
-zinit ice wait'2' lucid
-zinit light zdharma-continuum/history-search-multi-word
-
 # FZF
 zinit ice from"gh-r" as"command"
-zinit light junegunn/fzf-bin
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # EXA
 zinit ice wait lucid from"gh-r" as"program" mv"bin/exa* -> exa"

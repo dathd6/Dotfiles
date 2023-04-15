@@ -9,6 +9,7 @@ packages=(
         feh
         ghc
         ghcup-hs-bin
+        tree
         git
         glava
         haskell-utf8-string

@@ -2,7 +2,8 @@
 ## Keybindings
 ##
 
-bindkey -s '^o' '_smooth_fzf^M'
 bindkey -v
+bindkey '^P' fzf-cd-widget
+bindkey '^R' fzf-history-widget
 
 # vim:ft=zsh:nowrap

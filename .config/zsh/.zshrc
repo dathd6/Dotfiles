@@ -3,7 +3,7 @@
 ## ░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀
 
 while read file
-do 
+do
   source "$ZDOTDIR/$file.zsh"
 done <<-EOF
 theme
