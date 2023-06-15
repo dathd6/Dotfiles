@@ -5,7 +5,7 @@ window:
   padding:
     x: 20
     y: 12
-  opacity: 1.0
+  opacity: 0.85
   title: Alacritty
   class:
     instance: Alacritty
@@ -14,6 +14,5 @@ window:
   dynamic_padding: true
 
   decorations: full
-  opacity: 0.8
 
 live_config_reload: true

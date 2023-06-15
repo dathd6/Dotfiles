@@ -1,20 +1,15 @@
 packages=(
-        autorandr
-        beautyline
-        catppuccin-cursors-mocha
-        catppuccin-gtk-theme-mocha
-        cava
         dunst
-        fd
+	qtile
+	zsh
+	tmux
+	ripgrep
+	libvirt
+	qemu
+	virt-manager
         feh
-        ghc
-        ghcup-hs-bin
         tree
         git
-        glava
-        haskell-utf8-string
-        haskell-x11
-        jgmenu
         lazygit
         libnotify
         lxappearance
@@ -22,27 +17,14 @@ packages=(
         nodejs
         npm
         polybar
-        picom-pijulius-git
-        playerctl
         python-pip
         python-virtualenv
         rofi
-        stack
         starship
-        stow
         ttf-fira-code
         ttf-font-awesome
         ttf-jetbrains-mono-nerd
         ttf-jetbrains-mono
-        unclutter
-        wmctrl
-        xcape
-        xdo
-        xorg-xinit
-        xorg-xmessage
-        xorg-xmodmap
-        xorg-xsetroot
-        zoxide
 )
 
 # Install packages

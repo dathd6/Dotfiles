@@ -12,6 +12,7 @@ from libqtile.layout.max import Max
 from libqtile.layout.floating import Floating
 
 # import widgets and bar
+from libqtile.widget.image import Image
 from libqtile.widget.base import _TextBox
 from libqtile.widget.groupbox import GroupBox
 from libqtile.widget.currentlayout import CurrentLayout
@@ -23,12 +24,14 @@ from libqtile.widget.systray import Systray
 from libqtile.widget.clock import Clock
 from libqtile.widget.spacer import Spacer
 from libqtile.widget.textbox import TextBox
+from libqtile.widget.battery import Battery
 from libqtile.widget.generic_poll_text import GenPollText
 
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
 from colors import gruvbox
+from widgets.focus_widget import FocusWidget
 
 mod = "mod4"
 #terminal = guess_terminal()
@@ -80,28 +83,28 @@ keys = [
         lazy.spawn("alacritty -e betterlockscreen -l blur"),
         desc="lock screen",
     ),
+    Key([], "Print", lazy.spawn("flameshot gui"), desc="Launch terminal"),
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
-    # Toggle between different layouts as defined below
+    # Toggle between different layouts as defined belowa mutual relationship or connection between two or more things
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift"], "Escape", lazy.spawn('/home/dathd6/.config/qtile/scripts/powermenu'), desc="Shutdown Qtile"),
-    Key([mod, "shift"], "s", lazy.spawn('redshift -b 0.5:0.6'), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawn('dmenu_run -l 8 -p dathd6 -fn "FiraCode Bold 2" -nb "#272727"  -nf "#ebdbb2" -sb "#98971a" -sf "#FCFCFA"'), desc="Spawn a command using a prompt widget"),
+    Key([mod], "r", lazy.spawn('rofi -show run'), desc="Spawn a command using a prompt widget"),
     # DmenuRun
      ### Switch focus to specific monitor (out of three)
-    #Key([mod], "w",
-    #    lazy.to_screen(0),
-    #    desc='Keyboard focus to monitor 1'
-    #    ),
-    #Key([mod], "e",
-    #    lazy.to_screen(1),
-    #    desc='Keyboard focus to monitor 2'
-    #    ),
-    #Key([mod], "r",
-    #    lazy.to_screen(2),
-    #    desc='Keyboard focus to monitor 3'
-    #    ),
+    Key([mod], "x",
+        lazy.to_screen(0),
+        desc='Keyboard focus to monitor 1'
+        ),
+    Key([mod], "c",
+        lazy.to_screen(1),
+        desc='Keyboard focus to monitor 2'
+        ),
+    Key([mod], "z",
+        lazy.to_screen(2),
+        desc='Keyboard focus to monitor 3'
+        ),
     ### Switch focus of monitors
     Key([mod], "Tab",
         lazy.next_screen(),
@@ -115,16 +118,16 @@ keys = [
 
 #groups = [Group(i) for i in "123456789"]
 groups = [
-    Group('1', label='一', matches=[Match(wm_class='Alacritty')], layout='columns'),
-    Group('2', label='二', matches=[Match(wm_class='Brave-browser')], layout='columns'),
-    Group('3', label='三', matches=[Match(wm_class='Microsoft Teams - Preview'), Match(wm_class='TelegramDesktop')], layout='columns'),
-    Group('4', label='四', matches=[Match(wm_class='Google-chrome')], layout='columns'),
-    Group('5', label='五', matches=[Match(wm_class='')], layout='columns'),
-    Group('6', label='六', matches=[Match(wm_class='')], layout='columns'),
-    Group('7', label='七', matches=[Match(wm_class='')], layout='columns'),
-    Group('8', label='八', matches=[Match(wm_class='firefox')], layout='columns'),
-    Group('9', label='九', matches=[Match(wm_class='obs')], layout='columns'),
-    Group('0', label='零', matches=[Match(wm_class='Authy Desktop'), Match(wm_class='VirtualBox Manager')], layout='columns'),
+    Group('1', label='一', matches=[Match(wm_class='Brave-browser')], layout='columns'),
+    Group('2', label='二', matches=[Match(wm_class='Alacritty')], layout='columns'),
+    Group('3', label='三', matches=[Match(wm_class='obsidian'), Match(wm_class='Anki')], layout='columns'),
+    Group('4', label='四', matches=[Match(wm_class='obs')], layout='columns'),
+    Group('5', label='五', matches=[Match(wm_class='thunderbird')], layout='columns'),
+    Group('6', label='六', matches=[Match(wm_class='Virt-manager')], layout='columns'),
+    Group('7', label='七', matches=[Match(wm_class='obs')], layout='columns'),
+    Group('8', label='八', matches=[Match(wm_class='Todoist')], layout='columns'),
+    Group('9', label='九', matches=[Match(wm_class='Morgen')], layout='columns'),
+    Group('0', label='零', matches=[Match(wm_class='notion-app'), Match(wm_class='VirtualBox Manager')], layout='columns'),
 ]
 
 #prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
@@ -207,212 +210,177 @@ class MyCustomWidget(_TextBox):
         return self.text
 
 screens = [
-          Screen(
-              top=Bar(
-                  [
-                      Spacer(length=10),
-                      CurrentLayout(
-                          background=gruvbox['blue-alt'],
-                      ),
-                      Spacer(length=10),
-
-                      WindowCount(
-                          text_format='  {num}',
-                          background=gruvbox['green'],
-                          show_zero=True
-                      ),
-
-                      Spacer(length=10),
-
-                      # Prompt(foreground=gruvbox['fg']),
-
-                      GroupBox(
-                          disable_drag=True,
-                          active=gruvbox['fg'],
-                          inactive=gruvbox['gray-alt'],
-                          highlight_method='line',
-                          block_highlight_text_color=gruvbox['red-alt'],
-                          this_screen_border=gruvbox['purple-alt'],
-                          this_current_screen_border=gruvbox['green'],
-                          borderwidth=2,
-                          highlight_color=gruvbox['bg'],
-                          background=gruvbox['bg']
-                      ),
-
-                      WindowName(foreground=gruvbox['fg']),
-
-                      Spacer(length=100),
-                      Systray(),
-
-                      Spacer(length=10),
-
-                      CPU(
-                          format=' {freq_current}GHz {load_percent}%',
-                          background=gruvbox['blue']),
-
-                      Spacer(length=10),
-
-                      Memory(
-                          format=' {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
-                          background=gruvbox['red-alt']),
-
-                      Spacer(length=10),
-
-                      Clock(
-                          background=gruvbox['orange'],
-                          format=' %Y-%m-%d %a %I:%M %p'),
-
-                      Spacer(length=10),
-                  ],
-                  margin=[10, 10, 5, 10],
-                  background='#24352100',
-                  opacity=1,
-                  size=25,
-              ),
-          ),
-          Screen(
-              top=Bar(
-                  [
-                      Spacer(length=10),
-                      CurrentLayout(
-                          background=gruvbox['blue-alt'],
-                      ),
-                      Spacer(length=10),
-
-                      WindowCount(
-                          text_format='  {num}',
-                          background=gruvbox['green'],
-                          show_zero=True
-                      ),
-
-                      Spacer(length=10),
-
-                      # Prompt(foreground=gruvbox['fg']),
-
-                      GroupBox(
-                          disable_drag=True,
-                          active=gruvbox['fg'],
-                          inactive=gruvbox['gray-alt'],
-                          highlight_method='line',
-                          block_highlight_text_color=gruvbox['red-alt'],
-                          this_screen_border=gruvbox['purple-alt'],
-                          this_current_screen_border=gruvbox['green'],
-                          borderwidth=2,
-                          highlight_color=gruvbox['bg'],
-                          background=gruvbox['bg']
-                      ),
-
-                      WindowName(foreground=gruvbox['fg']),
-
-                      Spacer(length=100),
-
-                      GenPollText(
-                          update_interval=1,
-                          func=lambda: subprocess.check_output("sh /home/dathd6/.config/qtile/scripts/memory").decode("utf-8")
-                          ),
-                      #MyCustomWidget(text="Working mode", background=gruvbox['yellow'], mouse_callbacks={'Button1': lazy.spawn('alacritty')}),
-
-                      Spacer(length=10),
-
-                      CPU(
-                          format=' {freq_current}GHz {load_percent}%',
-                          background=gruvbox['blue']),
-
-                      Spacer(length=10),
-
-                      Memory(
-                          format=' {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
-                          background=gruvbox['orange-alt']),
-
-                      Spacer(length=10),
-
-                      Clock(
-                          background=gruvbox['aqua'],
-                          format=' %Y-%m-%d %a %I:%M %p'),
-
-                      Spacer(length=10),
-                  ],
-                  margin=[10, 10, 5, 10],
-                  background='#00000000',
-                  opacity=1,
-                  size=25,
-              ),
-          ),
-          Screen(
-              top=Bar(
-                  [
-                      Spacer(length=10),
-                      CurrentLayout(
-                          background=gruvbox['blue-alt'],
-                      ),
-                      Spacer(length=10),
-
-                      WindowCount(
-                          text_format='  {num}',
-                          background=gruvbox['green'],
-                          show_zero=True
-                      ),
-
-                      Spacer(length=10),
-
-                      # Prompt(foreground=gruvbox['fg']),
-
-                      GroupBox(
-                          disable_drag=True,
-                          active=gruvbox['fg'],
-                          inactive=gruvbox['gray-alt'],
-                          highlight_method='line',
-                          block_highlight_text_color=gruvbox['red-alt'],
-                          this_screen_border=gruvbox['purple-alt'],
-                          this_current_screen_border=gruvbox['green'],
-                          borderwidth=2,
-                          highlight_color=gruvbox['bg'],
-                          background=gruvbox['bg']
-                      ),
-
-                      WindowName(foreground=gruvbox['fg']),
-
-                      Spacer(length=100),
-
-                      GenPollText(
-                          update_interval=1,
-                          func=lambda: subprocess.check_output("sh /home/dathd6/.config/qtile/scripts/memory").decode("utf-8")
-                          ),
-                      #MyCustomWidget(text="Working mode", background=gruvbox['yellow'], mouse_callbacks={'Button1': lazy.spawn('alacritty')}),
-
-                      Spacer(length=10),
-
-                      CPU(
-                          format=' {freq_current}GHz {load_percent}%',
-                          background=gruvbox['blue']),
-
-                      Spacer(length=10),
-
-                      Memory(
-                          format=' {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
-                          background=gruvbox['orange-alt']),
-
-                      Spacer(length=10),
-
-                      Clock(
-                          background=gruvbox['aqua'],
-                          format=' %Y-%m-%d %a %I:%M %p'),
-
-                      Spacer(length=10),
-                  ],
-                  margin=[10, 10, 5, 10],
-                  background='#00000000',
-                  opacity=1,
-                  size=25,
-              ),
-          )
+    Screen(
+        top=Bar(
+            [
+                WindowName(
+                    foreground=gruvbox['fg'],
+                    max_chars=40
+                ),
+                GroupBox(
+                    disable_drag=True,
+                    active=gruvbox['fg'],
+                    inactive=gruvbox['gray-alt'],
+                    highlight_method='line',
+                    block_highlight_text_color=gruvbox['red-alt'],
+                    this_screen_border=gruvbox['purple-alt'],
+                    this_current_screen_border=gruvbox['green'],
+                    borderwidth=2,
+                    highlight_color=gruvbox['bg'],
+                    background='#28282800'
+                ),
+                Spacer(length=200),
+                CPU(
+                    format='CPU {freq_current}GHz {load_percent}%',
+                    foreground='#ffffff',
+                    background='#28282800'),
+                Spacer(length=10),
+                # Image(
+                #     filename="~/.config/qtile/icons/ram.png",
+                #     margin=0,
+                # ),
+                Memory(
+                    format='RAM{MemUsed: .0f}{mm} /{MemTotal: .0f}{mm}',
+                    measure_mem='G',
+                    foreground='#ffffff',
+                    background='#28282800'),
+                Spacer(length=10),
+                Clock(
+                    background='#28282800',
+                    foreground='#ffffff',
+                    format='%Y-%m-%d %a %I:%M %p'),
+                Spacer(length=10),
+                # FocusWidget(
+                #     background='#28282800',
+                #     foreground='#ffffff',
+                # ),
+                #Spacer(length=10),
+                # Image(
+                #     filename="~/.config/qtile/icons/Logo.png",
+                #     margin=0,
+                # ),
+                Battery(
+                    background='#28282800',
+                    foreground='#ffffff',
+                ),
+                Systray(),
+                Spacer(length=10),
+            ],
+            margin=[10, 10, 5, 10],
+            background='#ffffff00',
+            opacity=1,
+            size=25,
+        ),
+    ),
+    Screen(
+        top=Bar(
+            [
+                WindowName(
+                    foreground=gruvbox['fg'],
+                    max_chars=40
+                ),
+                GroupBox(
+                    disable_drag=True,
+                    active=gruvbox['fg'],
+                    inactive=gruvbox['gray-alt'],
+                    highlight_method='line',
+                    block_highlight_text_color=gruvbox['red-alt'],
+                    this_screen_border=gruvbox['purple-alt'],
+                    this_current_screen_border=gruvbox['green'],
+                    borderwidth=2,
+                    highlight_color=gruvbox['bg'],
+                    background='#28282800'
+                ),
+                Spacer(length=200),
+                CPU(
+                    format='CPU {freq_current}GHz {load_percent}%',
+                    foreground='#ffffff',
+                    background='#28282800'),
+                Spacer(length=10),
+                # Image(
+                #     filename="~/.config/qtile/icons/ram.png",
+                #     margin=0,
+                # ),
+                Memory(
+                    format='RAM{MemUsed: .0f}{mm} /{MemTotal: .0f}{mm}',
+                    measure_mem='G',
+                    foreground='#ffffff',
+                    background='#28282800'),
+                Spacer(length=10),
+                Clock(
+                    background='#28282800',
+                    foreground='#ffffff',
+                    format='%Y-%m-%d %a %I:%M %p'),
+                Spacer(length=10),
+                # Image(
+                #     filename="~/.config/qtile/icons/Logo.png",
+                #     margin=0,
+                # ),
+                Battery(
+                    background='#28282800',
+                    foreground='#ffffff',
+                ),
+            ],
+            margin=[10, 10, 5, 10],
+            background='#ffffff00',
+            opacity=1,
+            size=25,
+        ),
+    ),
+    Screen(
+        top=Bar(
+            [
+                WindowName(
+                    foreground=gruvbox['fg'],
+                    max_chars=40
+                ),
+                GroupBox(
+                    disable_drag=True,
+                    active=gruvbox['fg'],
+                    inactive=gruvbox['gray-alt'],
+                    highlight_method='line',
+                    block_highlight_text_color=gruvbox['red-alt'],
+                    this_screen_border=gruvbox['purple-alt'],
+                    this_current_screen_border=gruvbox['green'],
+                    borderwidth=2,
+                    highlight_color=gruvbox['bg'],
+                    background='#28282800'
+                ),
+                Spacer(length=200),
+                CPU(
+                    format='CPU {freq_current}GHz {load_percent}%',
+                    foreground='#ffffff',
+                    background='#28282800'),
+                Spacer(length=10),
+                Memory(
+                    format='RAM{MemUsed: .0f}{mm} /{MemTotal: .0f}{mm}',
+                    measure_mem='G',
+                    foreground='#ffffff',
+                    background='#28282800'),
+                Spacer(length=10),
+                Clock(
+                    background='#28282800',
+                    foreground='#ffffff',
+                    format='%Y-%m-%d %a %I:%M %p'),
+                Spacer(length=10),
+                Battery(
+                    background='#28282800',
+                    foreground='#ffffff',
+                ),
+            ],
+            margin=[10, 10, 5, 10],
+            background='#ffffff00',
+            opacity=1,
+            size=25,
+        ),
+    )
 ]
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
+        #Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+        #Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+        #Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
@@ -462,6 +430,20 @@ def start_once():
     #    lazy.spawn("/usr/bin/telegram")
     home = os.path.expanduser('~/.config/qtile/autostart_once.sh')
     subprocess.run([home])
+
+# Switch to newly opened windows automatically
+auto_fullscreen = True
+follow_mouse_focus = False
+bring_front_click = False
+cursor_warp = False
+
+# Focus on newly opened windows
+@hook.subscribe.client_new
+def focus_new_windows(window):
+    if window and not window.cmd:
+        window.togroup()
+        window.group.cmd_toscreen()
+        window.cmd_bring_to_front()
 
 autostart()
 #start_once()

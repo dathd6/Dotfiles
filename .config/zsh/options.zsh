@@ -2,6 +2,8 @@
 ## ZSH Options
 ##
 
+ibus-daemon -drx
+
 umask 022
 zmodload zsh/zle
 zmodload zsh/zpty
@@ -28,9 +30,10 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
 # History
-HISTFILE="$XDG_CACHE_HOME/zsh/.zhistory"
-HISTSIZE=10000
-SAVEHIST=10000
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory
 
 # Autosuggestion
 ZSH_AUTOSUGGEST_USE_ASYNC="true"

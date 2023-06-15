@@ -1,9 +1,12 @@
 #!/bin/sh
 exec alacritty &
-exec /usr/bin/telegram-desktop &
-exec /usr/bin/teams &
 exec /usr/bin/brave &
+exec morgen &
+exec todoist &
+exec notion-app &
+exec thunderbird &
+exec anki &
+exec obsidian &
 ibus-daemon &
-/usr/bin/cshell/launcher &
 dunst &
 nm-applet &
