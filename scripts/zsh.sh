@@ -1,13 +1,12 @@
 #!/usr/bin/bash
+source $(pwd)/utils/backup_and_copy.sh
 
-pacman -S --needed --noconfirm zsh
-
-# FzF install
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-
-cp -rf .zshenv $home/
-cp -rf .config/zsh $home/.config
-source $home/.zshenv
-
+# Change zsh as default prompt
 chsh -s /usr/bin/zsh
+
+# Remove backup file first if exist
+# Backup the file
+# Copy config
+backup_and_copy ".zshenv" "$HOME"
+backup_and_copy "starship" "$HOME/.config"
+backup_and_copy "zsh" "$HOME/.config"

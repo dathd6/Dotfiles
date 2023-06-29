@@ -1,52 +1,9 @@
 #!/usr/bin/bash
+source $(pwd)/utils/configuration.sh
+source $(pwd)/utils/color.sh
 
-# Color variables
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+# Install dependencies, packages and applications
+configuration "dependencies, packages and applications" "bash $(pwd)/scripts/packages.sh"
 
-# Parse command-line options
-while [[ $# -gt 0 ]]; do
-  case $1 in
-    -u|--user)
-      user="$2"
-      shift 2
-      ;;
-    *)
-      echo "Invalid option: $1" >&2
-      exit 1
-      ;;
-  esac
-done
-
-# Check that user option is set
-if [[ -z "$user" ]]; then
-  echo "User option (--user or -u) is required"
-  exit 1
-fi
-
-# Update packages
-pacman -Sy
-echo -e "${GREEN}Success:${NC} Done update package."
-
-home="/home/$user"
-
-# Autoupdate mirrorlist
-bash ./scripts/reflector.sh
-echo -e "${GREEN}Success:${NC} Done setup reflector."
-
-# Config Alacritty
-bash ./scripts/alacritty.sh
-echo -e "${GREEN}Success:${NC} Done setup alacritty."
-
-# Config Z-Shell
-bash ./scripts/zsh.sh
-echo -e "${GREEN}Success:${NC} Done setup zsh."
-
-# Config Xmonad
-bash ./scripts/xmonad.sh
-echo -e "${GREEN}Success:${NC} Done setup Xmonad."
-
-# Neovim update plugins
-bash ./scripts/nvim.sh
-echo -e "${GREEN}Success:${NC} Done setup neovim."
+# Setup zsh
+configuration "ZSH & Starship" "bash $(pwd)/scripts/zsh.sh"
