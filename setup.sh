@@ -13,3 +13,9 @@ configuration "Alacritty (Terminal)" "bash $(pwd)/scripts/alacritty.sh"
 
 # Setup Zathura
 configuration "Zathura (Document Viewer)" "bash $(pwd)/scripts/zathura.sh"
+
+# Setup Zathura
+configuration "Zathura (Document Viewer)" "bash $(pwd)/scripts/zathura.sh"
+
+# Setup Flameshot
+configuration "Flameshot (Screen saver)" "bash $(pwd)/scripts/flameshot.sh"
