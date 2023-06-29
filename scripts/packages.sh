@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+source $(pwd)/utils/install_packages.sh
 
 packages=(
         adduser
@@ -63,33 +64,18 @@ python_packages=(
         python-iwlib
 )
 
+# Font packages
+font_packages=(
+        ttf-font-awesome
+        ttf-jetbrains-mono
+        ttf-meslo-nerd
+)
+
 # Update packages
 yay -Syu
 
-# Install packages
-for package in "${packages[@]}"; do
-        if [[ $(yay -Qi "$package" 2>/dev/null | grep Version | awk '{print $3}') == $(yay -Qi "$package" 2>/dev/null | grep Installed | awk '{print $4}') ]]; then
-            echo -e "${RED}$package is already installed with the latest version.${NC}"
-        else
-            echo -e "${GREEN}Installing $package...${NC}"
-            yay -S --noconfirm "$package"
-        fi
-done
-
-for package in "${python_packages[@]}"; do
-        if [[ $(yay -Qi "$package" 2>/dev/null | grep Version | awk '{print $3}') == $(yay -Qi "$package" 2>/dev/null | grep Installed | awk '{print $4}') ]]; then
-            echo -e "${RED}$package is already installed with the latest version.${NC}"
-        else
-            echo -e "${GREEN}Installing $package...${NC}"
-            yay -S --noconfirm "$package"
-        fi
-done
-
-for package in "${applications[@]}"; do
-        if [[ $(yay -Qi "$package" 2>/dev/null | grep Version | awk '{print $3}') == $(yay -Qi "$package" 2>/dev/null | grep Installed | awk '{print $4}') ]]; then
-            echo -e "${RED}$package is already installed with the latest version.${NC}"
-        else
-            echo -e "${GREEN}Installing $package...${NC}"
-            yay -S --noconfirm "$package"
-        fi
-done
+# Install all packages, dependencies and applications
+install_packages "${packages[@]}"
+install_packages "${font_packages[@]}"
+install_packages "${python_packages[@]}"
+install_packages "${applications[@]}"
