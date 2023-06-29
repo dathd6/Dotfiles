@@ -7,3 +7,6 @@ configuration "dependencies, packages and applications" "bash $(pwd)/scripts/pac
 
 # Setup zsh
 configuration "ZSH & Starship" "bash $(pwd)/scripts/zsh.sh"
+
+# Setup zsh
+configuration "Alacritty (Terminal)" "bash $(pwd)/scripts/alacritty.sh"
