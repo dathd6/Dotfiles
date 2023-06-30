@@ -6,7 +6,7 @@ packages=(
         bat
         betterlockscreen
         bitwarden
-        blueman
+        bluez-utils
         docker
         dunst
 	qtile

@@ -19,3 +19,9 @@ configuration "Zathura (Document Viewer)" "bash $(pwd)/scripts/zathura.sh"
 
 # Setup Flameshot
 configuration "Flameshot (Screen saver)" "bash $(pwd)/scripts/flameshot.sh"
+
+# Setup Rofi
+configuration "Rofi (Quick Menu launchers, Power Menu, Wifi and Bluetooth)" "bash $(pwd)/scripts/rofi.sh"
+
+# Setup Qtile
+configuration "Qtile Tilling Window Manager" "bash $(pwd)/scripts/qtile.sh"
