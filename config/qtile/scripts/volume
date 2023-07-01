@@ -16,8 +16,8 @@ my $output = `$command`;
 
 # Extract the volume percentage using a regular expression
 my ($volume) = $output =~ /(\d+)%/;
-my $color_text = '#b16270';
-my $color = '#b1628F';
+my $color_text = '#a06570';
+my $color = '#a0658F';
 my $icon = '';
 
 # Calculate the number of blocks for the volume icon

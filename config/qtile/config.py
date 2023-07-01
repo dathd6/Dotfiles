@@ -91,7 +91,7 @@ keys = [
     Key([mod, "shift"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "shift"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    Key([mod], "s", lazy.spawn("alacritty -e alsamixer"), desc="Volumn setting"),
+    Key([mod], "s", lazy.spawn(terminal + " -e alsamixer"), desc="Volumn setting"),
 
     # Utility
     Key([mod], "n" , lazy.spawn("dunstctl close"), desc="Close the last notification"),
@@ -105,7 +105,7 @@ keys = [
         desc="lock screen",
     ),
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Launch terminal"),
-    Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "t", lazy.spawn(home + '/.config/qtile/scripts/terminal.sh'), desc="Launch terminal"),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -128,8 +128,9 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
 
-    # Rofi
+    # RofI
     Key([mod, "shift"], "Escape", lazy.spawn(home + '/.config/rofi/powermenu/powermenu.sh'), desc="Shutdown Qtile"),
+    Key([mod], "XF86AudioMute", lazy.spawn(home + '/.config/rofi/powermenu/powermenu.sh'), desc="Powermenu Qtile"),
     Key([mod], "r", lazy.spawn(home + '/.config/rofi/launchers/launcher.sh'), desc="Launch Applications"),
     Key([mod], "b", lazy.spawn(home + '/.config/rofi/bluetooth/bluetooth.sh'), desc="Bluetooth"),
     Key([mod], "w", lazy.spawn(home + '/.config/rofi/wifi/wifi.sh'), desc="Wifi"),
@@ -221,10 +222,16 @@ for i in range(screen_count):
                         scale=True,
                         background=opac,
                     ),
+                    widget.Clock(
+                        background=opac,
+                        foreground=yellow,
+                        format='%H:%M',
+                        ),
                     widget.WindowName(
                         foreground=fg,
                         max_chars=40,
-                        width=bar.CALCULATED
+                        width=bar.CALCULATED,
+                        padding=0,
                     ),
                     widget.Spacer(),
                     widget.GroupBox(
@@ -257,7 +264,7 @@ for i in range(screen_count):
                         background=opac,
                         func=lambda: subprocess.check_output(home + "/.config/qtile/scripts/battery").decode("utf-8"),
                         padding=0),
-                    widget.Spacer(length=10),
+                    widget.Spacer(length=9),
                     widget.GenPollText(
                         name="Volume",
                         fmt="{}",
@@ -266,11 +273,12 @@ for i in range(screen_count):
                         func=lambda: subprocess.check_output(home + "/.config/qtile/scripts/volume").decode("utf-8"),
                         foreground=soft,
                         padding=0),
-                    widget.Spacer(length=5),
+                    widget.Spacer(length=15),
                     widget.Clock(
                         background=opac,
-                        foreground=yellow,
-                        format=' %d %B %Y, %a %I:%M %p'),
+                        foreground=yellow0,
+                        format=' %A, %B %d, %Y',
+                        padding=0),
                     widget.Systray(),
                     widget.Spacer(length=10),
                 ],
