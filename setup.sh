@@ -25,3 +25,15 @@ configuration "Rofi (Quick Menu launchers, Power Menu, Wifi and Bluetooth)" "bas
 
 # Setup Qtile
 configuration "Qtile Tilling Window Manager" "bash $(pwd)/scripts/qtile.sh"
+
+# Setup Dunst
+configuration "Dunst (Notification notifier)" "bash $(pwd)/scripts/dunst.sh"
+
+# Setup fzf
+configuration "Fuzzy finder for prompt" "bash $(pwd)/scripts/fzf.sh"
+
+# Setup Tmux
+configuration "Tmux (Session)" "bash $(pwd)/scripts/tmux.sh"
+
+# Setup UI
+configuration "UI - GTK3/GTK4, Icons and Cursor theme & SDDM & Fonts" "bash $(pwd)/scripts/ui.sh"

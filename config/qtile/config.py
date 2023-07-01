@@ -96,8 +96,8 @@ keys = [
     # Utility
     Key([mod], "n" , lazy.spawn("dunstctl close"), desc="Close the last notification"),
     Key([mod], "space" , lazy.spawn(home + '/.config/qtile/scripts/ibus_engine.sh'), desc="Change Ibus Engine"),
-    Key([mod], "XF86AudioLowerVolume" , lazy.spawn("xbacklight -dec 15"), desc="Decrease brightness"),
-    Key([mod], "XF86AudioRaiseVolume" , lazy.spawn("xbacklight -inc 15"), desc="Increase brightness"),
+    Key([mod], "XF86AudioLowerVolume" , lazy.spawn("xbacklight -dec 5"), desc="Decrease brightness"),
+    Key([mod], "XF86AudioRaiseVolume" , lazy.spawn("xbacklight -inc 5"), desc="Increase brightness"),
     Key(
         [mod],
         "Escape",

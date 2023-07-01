@@ -69,6 +69,7 @@ font_packages=(
         ttf-font-awesome
         ttf-jetbrains-mono
         ttf-meslo-nerd
+        ttf-opensans
 )
 
 # Update packages
