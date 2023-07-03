@@ -37,3 +37,6 @@ configuration "Tmux (Session)" "bash $(pwd)/scripts/tmux.sh"
 
 # Setup UI
 configuration "UI - GTK3/GTK4, Icons and Cursor theme & SDDM & Fonts" "bash $(pwd)/scripts/ui.sh"
+
+# Setup Neovim
+configuration "Neovim (Code Editor)" "bash $(pwd)/scripts/nvim.sh"
