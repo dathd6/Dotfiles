@@ -4,7 +4,7 @@ source $(pwd)/utils/backup_and_copy.sh
 # Remove backup file first if exist
 # Backup the file
 # Copy config
-backup_and_copy "wallpaper" "$HOME/Pictures"
+backup_and_copy "Pictures" "$HOME"
 backup_and_copy ".icons" "$HOME"
 backup_and_copy ".themes" "$HOME"
 backup_and_copy "fonts" "$HOME/.local/share"

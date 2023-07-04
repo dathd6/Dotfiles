@@ -106,7 +106,8 @@ keys = [
         lazy.spawn("alacritty -e betterlockscreen -l blur"),
         desc="lock screen",
     ),
-    Key([], "Print", lazy.spawn("flameshot gui"), desc="Launch terminal"),
+    Key([], "Print", lazy.spawn("flameshot gui"), desc="Screenshot"),
+    Key([mod], "p", lazy.spawn("flameshot gui"), desc="Screenshot"),
     Key([mod], "t", lazy.spawn(home + '/.config/qtile/scripts/terminal.sh'), desc="Launch terminal"),
     Key([mod, "shift"], "t", lazy.spawn(terminal + ' -e tmux'), desc="Launch new terminal tmux session"),
 
@@ -159,7 +160,7 @@ groups = [
     Group('2', label=' ', matches=[Match(wm_class='Alacritty')], layout='columns'),
     Group('3', label='󰹕 ', matches=[Match(wm_class='obsidian'), Match(wm_class='Zathura')], layout='columns'),
     Group('4', label=' ', matches=[Match(wm_class='Anki')], layout='columns'),
-    Group('5', label=' ', matches=[], layout='columns'),
+    Group('5', label=' ', matches=[Match(wm_class='Steam')], layout='columns'),
     Group('6', label=' ', matches=[Match(wm_class='Virt-manager')], layout='columns'),
     Group('7', label=' ', matches=[Match(wm_class='obs')], layout='columns'),
     Group('8', label='󰝖 ', matches=[Match(wm_class='Todoist')], layout='columns'),
@@ -210,6 +211,10 @@ extension_defaults = widget_defaults.copy()
 
 screens = []
 for i in range(screen_count):
+    systray_widget = widget.TextBox(text='')
+    if i == 0:
+        systray_widget = widget.Systray()
+
     screens.append(
         Screen(
             top=Bar(
@@ -243,8 +248,8 @@ for i in range(screen_count):
                         fontsize=14,
                         inactive=white0,
                         highlight_method='line',
-                        block_highlight_text_color=green0,
-                        this_screen_border=purple,
+                        block_highlight_text_color=soft,
+                        this_screen_border=yellow,
                         this_current_screen_border=green,
                         borderwidth=2,
                         highlight_color=bg,
@@ -282,7 +287,7 @@ for i in range(screen_count):
                         foreground=yellow0,
                         format=' %A, %B %d, %Y',
                         padding=0),
-                    widget.Systray(),
+                    systray_widget,
                     widget.Spacer(length=10),
                 ],
                 margin=[10, 10, 5, 10],

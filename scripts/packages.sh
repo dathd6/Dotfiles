@@ -12,6 +12,7 @@ packages=(
 	qtile
 	tmux
         feh
+        ffmpeg
         tree
         git
 	ripgrep
@@ -22,6 +23,9 @@ packages=(
         network-manager-applet
         nodejs
         npm
+        # nvidia-dkms
+        nvidia-settings
+        lib32-nvidia-utils
         rofi
         starship
         stubtest
@@ -46,6 +50,7 @@ applications=(
         notion-app
         obs-studio
         obsidian
+        thunar
         thunderbird
         todoist-appimage
         steam
