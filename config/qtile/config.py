@@ -2,7 +2,9 @@ import os
 import subprocess
 
 # Qtile imports
-from libqtile import bar, widget, hook, layout
+from libqtile import bar, widget, hook 
+from libqtile.layout.floating import Floating
+from libqtile.layout.columns import Columns
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.bar import Bar
@@ -106,6 +108,7 @@ keys = [
     ),
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Launch terminal"),
     Key([mod], "t", lazy.spawn(home + '/.config/qtile/scripts/terminal.sh'), desc="Launch terminal"),
+    Key([mod, "shift"], "t", lazy.spawn(terminal + ' -e tmux'), desc="Launch new terminal tmux session"),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
@@ -185,7 +188,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(
+    Columns(
         border_normal=bg,
         border_focus_stack=yellow,
         border_width=2,
@@ -313,12 +316,12 @@ follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 
-floating_layout = layout.Floating(
+floating_layout = Floating(
     border_normal=white0,
-    border_focus=blue,
-    border_width=4,
+    border_focus=soft,
+    border_width=3,
     float_rules=[
-        *layout.Floating.default_float_rules,
+        *Floating.default_float_rules,
         Match(wm_class='confirmreset'),  # gitk
         Match(wm_class='makebranch'),  # gitk
         Match(wm_class='maketag'),  # gitk

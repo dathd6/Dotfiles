@@ -2,23 +2,38 @@
 ## ░▀▀█░░█░░█▀█░█▀▄░▀▀█░█▀█░░█░░█▀▀
 ## ░▀▀▀░░▀░░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░
 # Setups
-format="""$directory$git_branch$character"""
-right_format = """$git_status"""
+format="""
+$directory$git_branch$character\
+"""
+right_format = """
+$git_status\
+$python\
+$c\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+"""
 add_newline = true
 
 # Other languages configurations:
-c.disabled = true
-cmake.disabled = true
-haskell.disabled = true
-python.disabled = true
-ruby.disabled = true
-rust.disabled = true
-perl.disabled = true
-package.disabled = true
-lua.disabled = true
-nodejs.disabled = true
-java.disabled = true
-golang.disabled = true
+# c.disabled = true
+# cmake.disabled = true
+# haskell.disabled = true
+# python.disabled = false
+# ruby.disabled = true
+# rust.disabled = true
+# perl.disabled = true
+# package.disabled = true
+# lua.disabled = true
+# nodejs.disabled = true
+# java.disabled = true
+# golang.disabled = true
 
 [conda]
 format = ' [$symbol$environment](dimmed green) '
@@ -27,7 +42,7 @@ format = ' [$symbol$environment](dimmed green) '
 [character]
 success_symbol = "[](#D79921 bold)"
 error_symbol = "[](#D65D0E)"
-vicmd_symbol = "[](#98900A)"
+vicmd_symbol = "[](#98900A)"
 
 [directory]
 format = "[]($style)[ ](bg:#32302F00 fg:#98971A)[$path](bg:#32302F00 fg:#EBDBB2 bold)[ ]($style)"
@@ -55,3 +70,6 @@ renamed = '[» ](bg:#32302F fg:#8F3F71)'
 deleted = '[ ](bg:#32302F fg:#CC241D)'
 up_to_date = '[✓](bg:#32302F fg:#98971A)'
 
+[python]
+symbol = ' '
+pyenv_version_name = true

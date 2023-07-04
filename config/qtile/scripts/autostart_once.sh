@@ -7,4 +7,4 @@ exec anki &
 exec obsidian &
 dunst &
 nm-applet &
-exec alacritty &
+exec alacritty -e tmux &
