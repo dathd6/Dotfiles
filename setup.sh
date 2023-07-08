@@ -40,3 +40,6 @@ configuration "UI - GTK3/GTK4, Icons and Cursor theme & SDDM & Fonts" "bash $(pw
 
 # Setup Neovim
 configuration "Neovim (Code Editor)" "bash $(pwd)/scripts/nvim.sh"
+
+# Google Drive
+rclone config

@@ -158,9 +158,15 @@ keys = [
 groups = [
     Group('1', label=' ', matches=[Match(wm_class='Brave-browser')], layout='columns'),
     Group('2', label=' ', matches=[Match(wm_class='Alacritty')], layout='columns'),
-    Group('3', label='󰹕 ', matches=[Match(wm_class='obsidian'), Match(wm_class='Zathura')], layout='columns'),
+    Group(
+        '3', 
+        label='󰹕 ',
+        matches=[Match(wm_class='notion-app'),
+                 # Match(wm_class='obsidian'),
+                 Match(wm_class='Zathura')],
+        layout='columns'),
     Group('4', label=' ', matches=[Match(wm_class='Anki')], layout='columns'),
-    Group('5', label=' ', matches=[Match(wm_class='Steam')], layout='columns'),
+    Group('5', label=' ', matches=[Match(wm_class='steam')], layout='columns'),
     Group('6', label=' ', matches=[Match(wm_class='Virt-manager')], layout='columns'),
     Group('7', label=' ', matches=[Match(wm_class='obs')], layout='columns'),
     Group('8', label='󰝖 ', matches=[Match(wm_class='Todoist')], layout='columns'),
@@ -208,6 +214,10 @@ widget_defaults = dict(
     foreground=bg
 )
 extension_defaults = widget_defaults.copy()
+
+@lazy.function
+def on_click(qtile):
+    return qtile.cmd('alacritty -e focus')
 
 screens = []
 for i in range(screen_count):
@@ -266,14 +276,6 @@ for i in range(screen_count):
                         foreground=gray0,
                         background=opac),
                     widget.GenPollText(
-                        name="Battery",
-                        fmt="{}",
-                        update_interval=60,
-                        background=opac,
-                        func=lambda: subprocess.check_output(home + "/.config/qtile/scripts/battery").decode("utf-8"),
-                        padding=0),
-                    widget.Spacer(length=9),
-                    widget.GenPollText(
                         name="Volume",
                         fmt="{}",
                         update_interval=0,
@@ -282,20 +284,36 @@ for i in range(screen_count):
                         foreground=soft,
                         padding=0),
                     widget.Spacer(length=15),
-                    widget.Clock(
-                        background=opac,
-                        foreground=yellow0,
-                        format=' %A, %B %d, %Y',
-                        padding=0),
-                    systray_widget,
-                    widget.Spacer(length=10),
                 ],
                 margin=[10, 10, 5, 10],
                 background=opac,
                 opacity=1,
                 size=25,
             ),
-            bottom=bar.Gap(6),
+            bottom=Bar(
+                [
+                    widget.GenPollText(
+                        name="Battery",
+                        fmt="{}",
+                        update_interval=60,
+                        background=opac,
+                        func=lambda: subprocess.check_output(home + "/.config/qtile/scripts/battery").decode("utf-8"),
+                        padding=0),
+                    widget.Spacer(),
+                    widget.Clock(
+                        background=opac,
+                        foreground=yellow0,
+                        format=' %A, %B %d, %Y',
+                        padding=0),
+                    widget.Spacer(),
+                    systray_widget,
+                    widget.Spacer(length=15),
+                ],
+                margin=[5, 10, 10, 10],
+                background=opac,
+                opacity=1,
+                size=25,
+            ),
             left=bar.Gap(6),
             right=bar.Gap(6),
         )

@@ -27,6 +27,7 @@ packages=(
         nvidia-settings
         lib32-nvidia-utils
         rofi
+        rclone
         starship
         stubtest
         picom-jonaburg-git

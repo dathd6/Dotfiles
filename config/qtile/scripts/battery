@@ -56,7 +56,9 @@ if ($percent < 10) {
 }
 
 if ($status eq 'discharging') {
-	if ($percent < 10) {
+	if ($percent < 5) {
+		systemctl poweroff
+	} elsif ($percent < 10) {
   	$label = '󱃍';
 	} elsif ($percent < 20) {
   	$label = '󰁺';

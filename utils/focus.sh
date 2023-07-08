@@ -26,6 +26,7 @@ countdown() {
   done
   printf "\r%s" "$(format_time 0)"
   echo -e "\nCountdown finished!"
+  clear
 }
 
 # Default countdown time in seconds (50 minutes)
