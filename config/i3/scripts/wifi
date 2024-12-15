@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+sub get_wifi_name {
+    my $ssid = `nmcli -t -f active,ssid dev wifi | grep '^yes' 2>/dev/null`;
+    if ($ssid =~ /yes:(.+)/) {
+        return $1;
+    }
+    return "Could not retrieve Wi-Fi name";
+}
+
+my $wifi_name = get_wifi_name();
+print "$wifi_name\n";
+

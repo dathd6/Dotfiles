@@ -1,0 +1,232 @@
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+# Set mod key (Mod1=<Alt>, Mod4=<Super>)
+set $mod Mod4
+set $alt Mod1
+set $ctrl Control
+
+# Default font
+font pango:Jetbrains Mono 10
+
+# i3 statup and sleep initialization
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- mantablockscreen --nofork
+
+# System Audio Controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id xbacklight -inc 5
+bindsym XF86AudioLowerVolume exec --no-startup-id xbacklight -dec 5
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh volume_mute
+
+# Play and pause keys
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+
+# System Brightness Controls
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
+
+focus_follows_mouse no
+
+# kill focused window
+bindsym $mod+q kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+$ctrl+h move left
+bindsym $mod+$ctrl+j move down
+bindsym $mod+$ctrl+k move up
+bindsym $mod+$ctrl+l move right
+
+# change workspace to another monitor
+bindsym $mod+Shift+h move workspace to output left
+bindsym $mod+Shift+j move workspace to output down
+bindsym $mod+Shift+k move workspace to output up
+bindsym $mod+Shift+l move workspace to output right
+
+# split in different orientation
+bindsym $mod+c split h
+bindsym $mod+x split v
+
+# toggle fullschreen mode
+bindsym $mod+Shift+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+w layout stacking
+bindsym $mod+e layout toggle split
+
+# toggle floating mode
+bindsym $mod+f fullscreen
+
+# Volume
+bindsym $mod+s exec pavucontrol
+
+# define workspaces
+set $ws1 "1一"
+set $ws2 "2二"
+set $ws3 "3三"
+set $ws4 "4四"
+set $ws5 "5五"
+set $ws6 "6六"
+set $ws7 "7七"
+set $ws8 "8八"
+set $ws9 "9九"
+set $ws0 "10十"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws0
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1, workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2, workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3, workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4, workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5, workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6, workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7, workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8, workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9, workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws0, workspace number $ws0
+
+# move to different workspaces
+bindsym $mod+period workspace next_on_output
+bindsym $mod+comma workspace prev_on_output
+
+# move focused container to different workspaces
+bindsym $mod+Shift+period move container to workspace next
+bindsym $mod+Shift+comma move container to workspace prev
+
+# moving focus between windows, ment for tabbed mode
+bindsym $alt+Tab focus right
+bindsym $alt+Shift+Tab focus left
+
+# screenshotting
+bindsym Print exec flameshot gui -c -p ~/Pictures/Screenshots
+bindsym $mod+Print exec maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym $mod+Shift+Print exec flameshot full -c -p ~/Pictures/Screenshots
+
+# run terminal
+bindsym $mod+t exec kitty
+bindsym $mod+Shift+t exec kitty -e tmux a
+
+# run rofi
+bindsym $mod+r exec rofi -show drun
+
+# reload the configuration file
+bindsym $mod+Shift+r restart
+
+# Lock screen
+bindsym $mod+Escape exec mantablockscreen -sc
+
+# Wifi and Bluetooth
+bindsym $mod+m exec ~/.config/rofi/bluetooth/bluetooth.sh
+bindsym $mod+n exec ~/.config/rofi/wifi/wifi.sh
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+  # usig letters
+  bindsym h resize shrink width 5 px or 5 ppt
+  bindsym k resize grow height 5 px or 5 ppt
+  bindsym j resize shrink height 5 px or 5 ppt
+  bindsym l resize grow width 5 px or 5 ppt
+
+  # using arrows
+  bindsym Left resize shrink width 5 px or 5 ppt
+  bindsym Down resize grow height 5 px or 5 ppt
+  bindsym Up resize shrink height 5 px or 5 ppt
+  bindsym Right resize grow width 5 px or 5 ppt
+
+  # escape current mode
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+
+bindsym $mod+$ctrl+r mode "resize"
+
+# Startup apps
+exec --no-startup-id ~/.config/i3/scripts/picom.sh
+exec --no-startup-id xsettingsd
+exec --no-startup-id dunst
+exec --no-startup-id lxqt-powermanagement
+exec --no-startup-id lxqt-policykit-agent
+# exec --no-startup-id polybar
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec --no-startup-id xclip
+exec --no-startup-id sleep 1 && copyq
+exec --no-startup-id xeventbind resolution ~/.config/i3/scripts/display_redraw.sh
+exec --no-startup-id feh --bg-max --randomize ~/Pictures/background/gruv-portal-cake.png
+exec --no-startup-id xrandr --output eDP-1 --mode 2048x1152
+exec --no-startup-id xrandr --output HDMI-2 --auto --left-of eDP-1
+exec --no-startup-id flameshot
+exec --no-startup-id ibus-daemon
+
+# System colors
+# class                 border  backgr  text    indicator child_border
+# client.focused          #b8bb26 #b8bb26 #32302f #b8bb26 #b8bb26
+# client.unfocused        #282828 #282828 #dfbf8e #282828 #282828
+# client.focused_inactive #282828 #282828 #dfbf8e #282828 #282828
+
+# window modifications
+title_align center
+tiling_drag modifier titlebar
+floating_modifier $mod
+default_orientation horizontal
+
+# borders
+default_border pixel 15
+default_floating_border pixel 2
+for_window [class="^.*"] border pixel 3
+
+## around window gaps
+gaps inner 9
+gaps outer 1
+
+
+set $bg-color 	         #98971A
+set $inactive-bg-color   #272727
+set $text-color          #32302f
+set $inactive-text-color #dfbf8e
+set $urgent-bg-color     #E53935
+
+# window colors
+#                       border              background         text                 indicator
+client.focused          $bg-color           $bg-color          $text-color          #00ff00
+client.unfocused        $inactive-bg-color #2B2C2C $inactive-text-color #00ff00
+client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color #00ff00
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+
+# bar
+bar {
+  	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    tray_output none
+    strip_workspace_numbers yes
+	colors {
+		background $inactive-bg-color
+	    separator $inactive-bg-color
+		#                  border             background          text
+		focused_workspace  $inactive-bg-color $inactive-bg-color  #FE8019
+		inactive_workspace $inactive-bg-color $inactive-bg-color  $inactive-text-color
+		urgent_workspace   $urgent-bg-color   $urgent-bg-color    $text-color
+	}
+    position bottom
+    padding 6px 6px 8px 15px
+    workspace_min_width 35
+    font pango:Jetbrains Mono Bold 10
+}
