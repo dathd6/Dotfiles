@@ -122,7 +122,7 @@ alt-shift-semicolon = 'mode service'
 
 alt-shift-r = 'mode resize'
 
-alt-t = 'exec-and-forget open -a /Applications/kitty.app'
+alt-t = 'exec-and-forget open -a /Applications/Warp.app'
 
 [mode.resize.binding]
 h = 'resize width -50'
